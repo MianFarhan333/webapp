@@ -1,0 +1,59 @@
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+  }
+
+  body {
+      font-family: Arial, sans-serif;
+      background-image: url(../technology-background-picture-financial-graph-260nw-2499886425.webp);
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+  }
+
+  #quiz-container {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 10px;
+      box-shadow: 1px 1px 3px 2px white;
+      width: 450px;
+      text-align: center;
+  }
+
+  .btn {
+      display: block;
+      margin: 16px auto;
+      padding: 15px 25px;
+      background-color: #032244;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 30px;
+      font-size: 17px;
+      font-weight: 600;
+  }
+
+  .btn:hover {
+      background-color: #597694;
+      color: black;
+  }
+
+  #result {
+      font-weight: bold;
+      margin-top: 20px;
+      color: green;
+  }
+
+  #timer {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      margin-top: 10px;
+      color: red;
+  }

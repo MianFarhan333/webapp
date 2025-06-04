@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expense Tracker App</title>
+  <link rel="stylesheet" href="expense.css" />
+</head>
+
+<body>
+  <h1 class="exp-h1">Expense Tracker App</h1>
+
+  <div class="input-section">
+    <label>Category:
+      <select id="category">
+        <option value="Food">Food</option>
+        <option value="Transportation">Transportation</option>
+        <option value="Utilities">Utilities</option>
+        <option value="Crockry">Crockry</option>
+      </select>
+    </label>
+
+    <label>Amount:
+      <input type="number" id="amount" placeholder="Enter amount" />
+    </label>
+
+    <label>Date:
+      <input type="date" id="date" />
+    </label>
+
+    
+<button id="add-btn" class="add-btn" onclick="addExpense()">Add</button>
+  </div>
+
+  <div class="input-section">
+    <label>Monthly Income:
+      <input type="number" id="income" placeholder="Enter income" />
+    </label>
+    <button onclick="setIncome()">Set Income</button>
+  </div>
+
+  <h2 class="exp-h2">Expenses List</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>Amount</th>
+        <th>Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="expense-table"></tbody>
+    <tfoot>
+      <tr>
+        <td><strong>Total Expense:</strong></td>
+        <td id="total-amount"><strong>0</strong></td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td><strong>Monthly Income:</strong></td>
+        <td id="monthly-income">0</td>
+        <td colspan="2"></td>
+      </tr>
+      <tr>
+        <td><strong>Remaining Balance:</strong></td>
+        <td id="remaining-balance">0</td>
+        <td colspan="2"></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <script src="expense.js"></script>
+</body>
+
+</html>

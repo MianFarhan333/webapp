@@ -57,3 +57,49 @@
       margin-top: 10px;
       color: red;
   }
+  .qn-counter{
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        margin-top: 10px;
+        color: #032244;
+  }
+#pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 16px 0;
+    flex-wrap: wrap;
+}
+
+.page-step {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #ddd;
+    color: #333;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    transition: background-color 0.3s, transform 0.2s;
+    user-select: none;
+}
+
+.page-step.active {
+    background-color: #4CAF50;
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.page-step.completed {
+    background-color: #8BC34A;
+    color: white;
+}
+
+.page-step:hover:not(.active) {
+    background-color: #bbb;
+}
+

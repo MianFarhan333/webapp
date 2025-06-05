@@ -34,21 +34,34 @@ function addExpense() {
 
 function showExpenses() {
   let table = document.getElementById('expense-table');
-  table.innerHTML = ""; 
+  table.innerHTML = "";
 
   let total = 0;
+  let grouped = {};
 
   expenses.forEach((exp, i) => {
-    total += exp.amount;
+    if (!grouped[exp.category]) {
+      grouped[exp.category] = { amount: 0, latestDate: exp.date };
+    }
 
+    grouped[exp.category].amount += exp.amount;
+
+    if (new Date(exp.date) > new Date(grouped[exp.category].latestDate)) {
+      grouped[exp.category].latestDate = exp.date;
+    }
+
+    total += exp.amount;
+  });
+
+  Object.keys(grouped).forEach((cat) => {
     table.innerHTML += `
       <tr>
-        <td>${exp.category}</td>
-        <td>${exp.amount.toFixed(2)}</td>
-        <td>${exp.date}</td>
+        <td>${cat}</td>
+        <td>${grouped[cat].amount.toFixed(2)}</td>
+        <td>${grouped[cat].latestDate}</td>
         <td>
-          <button onclick="editExpense(${i})">Edit</button>
-          <button onclick="deleteExpense(${i})">Delete</button>
+          <!-- Optionally: remove or customize buttons -->
+          <button onclick="deleteCategory('${cat}')">Delete</button>
         </td>
       </tr>`;
   });
@@ -56,6 +69,7 @@ function showExpenses() {
   document.getElementById('total-amount').textContent = total.toFixed(2);
   document.getElementById('remaining-balance').textContent = (monthlyIncome - total).toFixed(2);
 }
+
 
 function editExpense(index) {
   let exp = expenses[index];
@@ -67,11 +81,12 @@ function editExpense(index) {
   document.getElementById('add-btn').textContent = "Update Expense";
 }
 
-function deleteExpense(index) {
-  expenses.splice(index, 1);     
-  saveExpenses();                  
-  showExpenses();                  
+function deleteCategory(category) {
+  expenses = expenses.filter(exp => exp.category !== category);
+  saveExpenses();
+  showExpenses();
 }
+
 
 function setIncome() {
   let income = parseFloat(document.getElementById('income').value);

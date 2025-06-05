@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>General Knowledge Quiz</title>
     <link rel="stylesheet" href="quiz.css">
 </head>
+
 <body>
     <div id="quiz-container">
         <div id="start-screen">
@@ -12,11 +14,14 @@
             <button id="start-btn" class="btn">Start Quiz</button>
         </div>
         <div id="quiz-screen" style="display:none;">
+            <p id="question-counter" class="qn-counter">Question 1 of 10</p>
             <h2 id="question">Question</h2>
             <p id="timer">Time left: 15s</p>
+            <div id="pagination"></div>
             <div id="answers"></div>
-            <!-- <button id="next-btn" class="btn" style="display:none;">Next</button> -->
             <div id="result"></div>
+            <button id="restart-btn" class="btn" style="display: none;">Restart Quiz</button>
+
         </div>
     </div>
     <script src="quizz.js"></script>

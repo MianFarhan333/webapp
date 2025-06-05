@@ -5,6 +5,11 @@ const answersEl = document.getElementById('answers');
 const resultEl = document.getElementById('result');
 const startBtn = document.getElementById('start-btn');
 const timerEl = document.getElementById('timer');
+const questionCounterEl = document.getElementById('question-counter');
+const paginationEl = document.getElementById('pagination');
+const restartBtn = document.getElementById('restart-btn');
+
+
 
 let questions = [];
 let currentQuestionIndex = 0;
@@ -61,6 +66,21 @@ function autoSelect() {
 function loadQuestion() {
     stopTimer();
     const current = questions[currentQuestionIndex];
+
+    // Update question counter
+    questionCounterEl.textContent = `Question ${currentQuestionIndex + 1} of ${questions.length}`;
+
+    // Update pagination steps
+    const steps = paginationEl.querySelectorAll('.page-step');
+    steps.forEach((step, index) => {
+        step.classList.remove('active', 'completed');
+        if (index < currentQuestionIndex) {
+            step.classList.add('completed');
+        } else if (index === currentQuestionIndex) {
+            step.classList.add('active');
+        }
+    });
+
     questionEl.innerHTML = decodeHTML(current.question);
     const answers = shuffle([...current.incorrect_answers, current.correct_answer]);
     answersEl.innerHTML = '';
@@ -74,6 +94,8 @@ function loadQuestion() {
     resultEl.textContent = '';
     startTimer();
 }
+
+
 function selectAnswer(selected, correct) {
     stopTimer();
     const allButtons = answersEl.querySelectorAll('button');
@@ -101,11 +123,13 @@ function selectAnswer(selected, correct) {
 
 function showResult() {
     stopTimer();
-    questionEl.textContent = 'quiz completed!';
+    questionEl.textContent = 'Quiz Completed!';
     answersEl.innerHTML = '';
     timerEl.textContent = '';
     resultEl.textContent = `Your score is ${score} out of ${questions.length}`;
+    restartBtn.style.display = 'inline-block'; // 👈 Show the button
 }
+
 
 startBtn.addEventListener("click", () => {
     fetch("https://opentdb.com/api.php?amount=10&category=23&difficulty=easy&type=multiple")
@@ -116,6 +140,30 @@ startBtn.addEventListener("click", () => {
             currentQuestionIndex = 0;
             startScreen.style.display = 'none';
             quizScreen.style.display = 'block';
+
+            paginationEl.innerHTML = '';
+            for (let i = 0; i < questions.length; i++) {
+                const step = document.createElement('div');
+                step.className = 'page-step';
+                step.textContent = i + 1; // Numbered
+                paginationEl.appendChild(step);
+            }
+
+
             loadQuestion();
-        })
-})
+        });
+});
+restartBtn.addEventListener('click', () => {
+    fetch("https://opentdb.com/api.php?amount=10&category=23&difficulty=easy&type=multiple")
+        .then(response => response.json())
+        .then(data => {
+            questions = data.results;
+            score = 0;
+            currentQuestionIndex = 0;
+
+            restartBtn.style.display = 'none';
+            resultEl.textContent = '';
+            loadQuestion();
+        });
+});
+
